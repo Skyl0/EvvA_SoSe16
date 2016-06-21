@@ -7,9 +7,9 @@
 
 
 <div class="ausgabe">
-{{anzCtrl.myarray.cart}}
+<!-- {{anzCtrl.myorder.cart}} -->
 <ul class="list-unstyled anzeige">
-	<li class="list-item" ng-repeat="pizza in anzCtrl.myarray.cart">
+	<li class="list-item" ng-repeat="pizza in anzCtrl.myorder.cart">
 		<h3>{{pizza.name}}</h3><br/>
 		<span class="status" ng-if="pizza.status=0">Bestellt</span>
 		<span class="status" ng-if="pizza.status=1">Im Ofen</span>

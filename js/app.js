@@ -44,23 +44,22 @@
 	})	
 	.controller('AnzeigeController',function($http){
 				
-		this.adress = '';
-		this.id = 13;
+		//$scope.adress = '';
+		this.id = 16;
 		//this.myorder = order2;
 		this.myorder = {};
-		this.myarray = {};
+		//$scope.myarray = {};
 		
 		this.getMyOrder = function(){
 			
 			$http.get('get_by_id.php',{params:{"id": this.id}}).success(function(datar){
 				
-				this.myorder = angular.fromJson(datar);
-				this.myarray = this.myorder.order;
-				console.log(this.myarray);
-			//this.myorder = angular.fromJson('{"order":{"cart":[{"name":"Tonno","price":6.5,"status":0},{"name":"Frutti di Mare","price":8.3,"status":0}],"address":"asdasdsad","id":""}}');
-				//this.myorder = JSON.parse( data );
-				
-				//console.log("Got it!" . data.order.address);
+				//console.log(datar) NEU 14:46;
+				this.myorder = JSON.parse(datar);
+				//this.myarray = this.myorder.cart;
+				console.log(this.myorder);
+				//console.log("Erste Pizza" . this.myarray.cart.0);
+				//return this.myorder;
 			})
 		}
 	})	
@@ -72,10 +71,13 @@
 		
 		
 		this.placeOrder = function() {
-				
-			$http.post('insert.php', { order: this.order } ).success(function(data){
+				// TODO GET nehmen um die ID zu empfangen und dem Kunden auszugeben
+			$http.get('insert.php',  {order : this.order} ).then(function(data){
 					console.log("Placed Order!");
-					//this.order.id = data;
+					this.order.id = data; 
+					console.log ("ID: " + data);
+			},function() {
+				console.log("Error placing order!");
 			});
 			console.log('Order ' + JSON.stringify(this.order) );
 		}
@@ -95,8 +97,10 @@
 		
 		this.getAll = function() {
 			$http.get('get_all.php').success(function(data){
-				this.result = angular.fromJson(data);
-				//console.log('Got all!' . this.result);
+				 this.result = JSON.parse(data);
+				// this.result = angular.fromJson(data);
+				console.log('Got all!' . this.result);
+				return this.result;
 			});
 		}
 		
