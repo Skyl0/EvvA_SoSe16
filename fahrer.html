@@ -1,0 +1,27 @@
+<h3> Fahrer </h3>
+<div ng-controller="UpdateController as updCtrl">
+	<form name="updateform" ng-submit="updCtrl.getAll();">
+		<button type="submit" class="btn btn-default">Hole alle!</button>
+	</form>
+	<div ng-repeat="item in updCtrl.uporder.cart track by $index">
+	Lieferung an {{updCtrl.uporder.address}}
+	<div ng-if="item.status >= 2">{{item.name}}
+		<span class="status" ng-if="item.status=2">Lieferbereit</span>
+		<span class="status" ng-if="item.status=3">Unterwegs</span>
+		<span class="status" ng-if="item.status=4">Lieferbereit</span>
+		<form name="changestatus" ng-submit="updCtrl.upStatus($index);">
+		<button type="submit" class="btn btn-default">Status weiterschalten!</button>
+		</form>
+	</div>
+	</div>
+	<div class="fahrer">
+	Lieferung an M. Ernst Soderstr. 96 Darmstadt
+	<div>Pizza Tonno
+		<span class="status" >Lieferbereit</span>
+		
+		<form name="changestatus" ng-submit="updCtrl.upStatus(0);">
+		<button type="submit" class="btn btn-default">Status weiterschalten!</button>
+		</form>
+	</div>
+	</div>
+</div>
