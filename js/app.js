@@ -55,7 +55,8 @@
 			$http.get('get_by_id.php',{params:{"id": this.id}}).success(function(datar){
 				
 				//console.log(datar) NEU 14:46;
-				this.myorder = JSON.parse(datar);
+				// this.myorder = JSON.parse(datar);
+				this.myorder = angular.fromJson(datar);
 				//this.myarray = this.myorder.cart;
 				console.log(this.myorder);
 				//console.log("Erste Pizza" . this.myarray.cart.0);
