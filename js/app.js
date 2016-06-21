@@ -100,9 +100,11 @@
 			*/
 		
 		_this.getAll = function() {
-			$http.get('get_all.php').success(function(data){
+			$http.get('get_all.php')
+			.success(function(data){
+				console.log('Got all!' . data);
 				_this.result = angular.fromJson(data);
-				console.log('Got all!' . _this.result);
+				
 			});
 		}
 		
