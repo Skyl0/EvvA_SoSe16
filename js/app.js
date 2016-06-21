@@ -44,27 +44,26 @@
 	})	
 	.controller('AnzeigeController',function($http){
 				
-		//$scope.adress = '';
-		this.id = 16;
-		//this.myorder = order2;
-		this.myorder = {};
-		//$scope.myarray = {};
+		var _this = this
+		_this.id = 21;
+		//_this.myorder = order2;
+		_this.myorder = {};
+		//_this.myarray = {};
 		
-		this.getMyOrder = function(){
+		_this.getMyOrder = function(){
 			
-			$http.get('get_by_id.php',{params:{"id": this.id}}).success(function(datar){
-				
-				//console.log(datar) NEU 14:46;
-				// this.myorder = JSON.parse(datar);
-				this.myorder = angular.fromJson(datar);
-				//this.myarray = this.myorder.cart;
-				console.log(this.myorder);
-				//console.log("Erste Pizza" . this.myarray.cart.0);
-				//return this.myorder;
+			$http.get('get_by_id.php',{params:{"id": _this.id}})
+			
+			.success(function(datar){
+
+				_this.myorder = angular.fromJson(datar);
+				console.log(_this.myorder);
+				return _this.myorder;
 			})
 		}
 	})	
 	.controller ('OrderController',function($http,Warenkorb) {
+		var _this = this;
 		this.order = {};
 		this.order.cart = Warenkorb.getItems();
 		this.order.address = '';
@@ -76,32 +75,34 @@
 			$http.get('insert.php',  {order : this.order} ).then(function(data){
 					console.log("Placed Order!");
 					this.order.id = data; 
-					console.log ("ID: " + data);
+					console.log ("ID: " + this.order.id);
 			},function() {
 				console.log("Error placing order!");
 			});
-			console.log('Order ' + JSON.stringify(this.order) );
+			console.log('Order ' + JSON.stringify(this.order.cart) );
+			
 		}
 	})
 	.controller ('UpdateController',function($http) {
-		this.uporder = order2;
-		this.updateMsg = ''; // MUSS ERSETZT WERDEN DURCH EIN OBJEKT , welches durch Formular Aktionen verändert wird und regelmässig zurückgeschrieben wird.
-		this.id = 13;
-		this.result = {};
 		
+		var _this = this;
+		
+		_this.result = {};
+		_this.id = 23;
+		/*
 		this.updateById = function() {
 			
-		$http.post('update_by_id.php', this.updateMsg,{params:{"id": this.id}}).success(function(){
+		$http.post('update_by_id.php', _this.updateMsg,{params:{"id": _this.id}})
+			.success(function(){
 				console.log('Updated!');
 			});
 		}
+			*/
 		
-		this.getAll = function() {
+		_this.getAll = function() {
 			$http.get('get_all.php').success(function(data){
-				 this.result = JSON.parse(data);
-				// this.result = angular.fromJson(data);
-				console.log('Got all!' . this.result);
-				return this.result;
+				_this.result = angular.fromJson(data);
+				console.log('Got all!' . _this.result);
 			});
 		}
 		

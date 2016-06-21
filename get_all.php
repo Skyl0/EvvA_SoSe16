@@ -9,13 +9,20 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
+$isfirst = true;
+
 $query = "SELECT * FROM orders";
 $result = mysqli_query($connect, $query);
-//echo "[";
+echo '{"allorders":[';
 while($row = $result->fetch_assoc()){
-    echo $row['theorder'] ;
+	if ($isfirst) {
+		echo '' . $row['theorder'] . '';
+		$isfirst = false;
+	} else {
+		echo ',' . $row['theorder'] . '';
+	}    
 }
-//echo "]";
+echo "]}";
 
 
 ?>
