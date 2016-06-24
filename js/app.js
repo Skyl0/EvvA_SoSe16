@@ -108,23 +108,54 @@
 			});
 		}
 		
-		_this.upStatus = function(object) {
+		_this.upStatus = function(pizza) {
 			//this.result.cart[index].status += 1
 			//console.log('TO IMPLEMENT STILL, idclicked = ' + index);
-			object.status += 1;
-			console.log(object);
+			if (pizza.status < 5) {
+				pizza.status += 1;
+				console.log(pizza);
+				this.writeBack();
+			}
+		};
+		
+		_this.downStatus = function(pizza) {
+			//this.result.cart[index].status += 1
+			//console.log('TO IMPLEMENT STILL, idclicked = ' + index);
+			if (pizza.status > 0) { pizza.status -= 1;
+				console.log(pizza);
+				this.writeBack();
+			 }
+			
 		};
 		
 		_this.writeBack = function () {
+			console.log("-------\nWrite Back˜\n-------");
+			var actual;
 			
+			for (var myorder in _this.result.allorders) {
+				
+				actual = _this.result.allorders[myorder];
+			  	console.log(actual);
+			    console.log( " ROW ID -> " + actual.rowid);
+				
+			    var $request = $http({
+			       method: "post",
+			       url: "update_by_id.php",
+			       data: {
+			           id: actual.rowid,
+			           order: actual.order
+			       }
+			   });
+			   
+				$request.success(function(data){
+					console.log ("Updating Order! ID: " + actual.rowid);
+				});
+				//console.log('Order ' + JSON.stringify(_this.order) );
+		  }
+		  
 			
-			$http.post('update.php',  {order : _this.order} ).success(function(data){
-					_this.order.id = data; 
-					console.log ("Placed Order! ID: " + _this.order.id);
-			},function() {
-				console.log("Error placing order!");
-			});
-			console.log('Order ' + JSON.stringify(_this.order) );
+
+			//*/
 			
 		}
 	})

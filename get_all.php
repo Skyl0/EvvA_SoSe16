@@ -15,11 +15,13 @@ $query = "SELECT * FROM orders";
 $result = mysqli_query($connect, $query);
 echo '{"allorders":[';
 while($row = $result->fetch_assoc()){
+	$id = $row['id'];
+	$theorder = $row['theorder'];
 	if ($isfirst) {
-		echo '' . $row['theorder'] . '';
+		echo '{"rowid":' . $id . ',' . substr($theorder,1) . '';
 		$isfirst = false;
 	} else {
-		echo ',' . $row['theorder'] . '';
+		echo ',' . '{"rowid":' . $id . ',' . substr($theorder,1) . '';
 	}    
 }
 echo "]}";

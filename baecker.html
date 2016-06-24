@@ -9,15 +9,21 @@
 
 
 <h3> Baecker (Alle Anzeigen)</h3>
-<div ng-controller="UpdateController as updCtrl">
-<form name="updateform" ng-submit="updCtrl.getAll();">
-<button type="submit" class="btn btn-default">Abschicken</button>
-</form>
-<ul><li ng-repeat="myorder in updCtrl.result.allorders">
-	Order Address: {{myorder.order.address}}
+<div ng-controller="UpdateController as updCtrl" >
+<!--<form name="updateform" ng-submit="updCtrl.getAll();">
+ <button type="submit" class="btn btn-default">Abschicken</button> 
+</form>-->
+<ul class="list-group" ng-init="updCtrl.getAll();"><li ng-repeat="myorder in updCtrl.result.allorders">
+	Kundenaddresse: {{myorder.order.address}} - <small>Interne Order ID: {{myorder.rowid}}</small>
 	<ul>
-		<li ng-repeat="pizza in myorder.order.cart">
-			{{pizza.name}} - Status {{pizza.status}} - <a ng-click="updCtrl.upStatus(pizza);">Pizza Status erhöhen</a>
+		<li class="baecker-pizza list-group-item" ng-repeat="pizza in myorder.order.cart" ng-if="pizza.status<4">
+			
+				Pizza: {{pizza.name}}<br/>
+			<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{pizza.status}}" aria-valuemin="0" aria-valuemax="4" style="width: {{pizza.status * 25}}%">
+				<span class="status">{{pizza.status * 25}}%</span>
+			</div><br/>
+			<button class="btn-success" ng-click="updCtrl.upStatus(pizza);">Status weiter</a>
+			<button class="btn-error" ng-click="updCtrl.downStatus(pizza);">Status zurück</a>
 		</li>
 	</ul>
 </li></ul>
