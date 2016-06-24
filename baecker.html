@@ -15,6 +15,10 @@
 </form>
 <ul><li ng-repeat="myorder in updCtrl.result.allorders">
 	Order Address: {{myorder.order.address}}
-	
+	<ul>
+		<li ng-repeat="pizza in myorder.order.cart">
+			{{pizza.name}} - Status {{pizza.status}} - <a ng-click="updCtrl.upStatus(pizza);">Pizza Status erhöhen</a>
+		</li>
+	</ul>
 </li></ul>
 	

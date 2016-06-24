@@ -63,23 +63,22 @@
 		}
 	})	
 	.controller ('OrderController',function($http,Warenkorb) {
-		//var _this = this;
-		this.order = {};
-		this.order.cart = Warenkorb.getItems();
-		this.order.address = '';
-		this.order.id = '';
+		var _this = this;
+		_this.order = {};
+		_this.order.cart = Warenkorb.getItems();
+		_this.order.address = '';
+		_this.order.id = 0;
 		
 		
-		this.placeOrder = function() {
+		_this.placeOrder = function() {
 				// TODO GET nehmen um die ID zu empfangen und dem Kunden auszugeben
-			$http.post('insert.php',  {order : this.order} ).success(function(data){
-					console.log("Placed Order!");
-					//this.order.id = data; 
-					console.log ("ID: " + this.order.id);
+			$http.post('insert.php',  {order : _this.order} ).success(function(data){
+					_this.order.id = data; 
+					console.log ("Placed Order! ID: " + _this.order.id);
 			},function() {
 				console.log("Error placing order!");
 			});
-			console.log('Order ' + JSON.stringify(this.order) );
+			console.log('Order ' + JSON.stringify(_this.order) );
 			
 		}
 	})
@@ -104,14 +103,30 @@
 			.success(function(data){
 				console.log('get_all.php fired!');
 				_this.result = angular.fromJson(data);
+				console.log(_this.result);
 				
 			});
 		}
 		
-		_this.upStatus = function(index) {
+		_this.upStatus = function(object) {
 			//this.result.cart[index].status += 1
-			console.log('TO IMPLEMENT STILL');
+			//console.log('TO IMPLEMENT STILL, idclicked = ' + index);
+			object.status += 1;
+			console.log(object);
 		};
+		
+		_this.writeBack = function () {
+			
+			
+			$http.post('update.php',  {order : _this.order} ).success(function(data){
+					_this.order.id = data; 
+					console.log ("Placed Order! ID: " + _this.order.id);
+			},function() {
+				console.log("Error placing order!");
+			});
+			console.log('Order ' + JSON.stringify(_this.order) );
+			
+		}
 	})
 	.factory ('Warenkorb', function(){
 		var items = [];

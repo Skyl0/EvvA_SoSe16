@@ -12,6 +12,6 @@ if (mysqli_connect_errno()) {
 $query = "INSERT INTO orders VALUES ('$data',NULL)";
 mysqli_query($connect, $query);
 
-printf ("This order has the id %d.\n", mysqli_insert_id($connect));
+printf ("%d\n", mysqli_insert_id($connect));
 
 ?>
