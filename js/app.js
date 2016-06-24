@@ -63,7 +63,7 @@
 		}
 	})	
 	.controller ('OrderController',function($http,Warenkorb) {
-		var _this = this;
+		//var _this = this;
 		this.order = {};
 		this.order.cart = Warenkorb.getItems();
 		this.order.address = '';
@@ -72,14 +72,14 @@
 		
 		this.placeOrder = function() {
 				// TODO GET nehmen um die ID zu empfangen und dem Kunden auszugeben
-			$http.get('insert.php',  {order : this.order} ).then(function(data){
+			$http.post('insert.php',  {order : this.order} ).success(function(data){
 					console.log("Placed Order!");
-					this.order.id = data; 
+					//this.order.id = data; 
 					console.log ("ID: " + this.order.id);
 			},function() {
 				console.log("Error placing order!");
 			});
-			console.log('Order ' + JSON.stringify(this.order.cart) );
+			console.log('Order ' + JSON.stringify(this.order) );
 			
 		}
 	})
@@ -102,13 +102,13 @@
 		_this.getAll = function() {
 			$http.get('get_all.php')
 			.success(function(data){
-				console.log('Got all!' . data);
+				console.log('get_all.php fired!');
 				_this.result = angular.fromJson(data);
 				
 			});
 		}
 		
-		this.upStatus = function(index) {
+		_this.upStatus = function(index) {
 			//this.result.cart[index].status += 1
 			console.log('TO IMPLEMENT STILL');
 		};
