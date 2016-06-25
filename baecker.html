@@ -16,7 +16,7 @@
 <ul class="list-group" ng-init="updCtrl.getAll();"><li ng-repeat="myorder in updCtrl.result.allorders">
 	Kundenaddresse: {{myorder.order.address}} - <small>Interne Order ID: {{myorder.rowid}}</small>
 	<ul>
-		<li class="baecker-pizza list-group-item" ng-repeat="pizza in myorder.order.cart" ng-if="pizza.status<4">
+		<li class="baecker-pizza list-group-item" ng-repeat="pizza in myorder.order.cart" ng-if="pizza.status<5">
 			
 				Pizza: {{pizza.name}}<br/>
 			<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{pizza.status}}" aria-valuemin="0" aria-valuemax="4" style="width: {{pizza.status * 25}}%">

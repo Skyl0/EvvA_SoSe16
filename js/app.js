@@ -75,6 +75,7 @@
 			$http.post('insert.php',  {order : _this.order} ).success(function(data){
 					_this.order.id = data; 
 					console.log ("Placed Order! ID: " + _this.order.id);
+					alert("Ihre Order Id ist " + _this.order.id);
 			},function() {
 				console.log("Error placing order!");
 			});
@@ -153,10 +154,6 @@
 				//console.log('Order ' + JSON.stringify(_this.order) );
 		  }
 		  
-			
-
-			//*/
-			
 		}
 	})
 	.factory ('Warenkorb', function(){
