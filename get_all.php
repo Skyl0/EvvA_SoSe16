@@ -11,7 +11,7 @@ if (mysqli_connect_errno()) {
 
 $isfirst = true;
 
-$query = "SELECT * FROM orders";
+$query = "SELECT * FROM orders WHERE archive = 0";
 $result = mysqli_query($connect, $query);
 echo '{"allorders":[';
 while($row = $result->fetch_assoc()){

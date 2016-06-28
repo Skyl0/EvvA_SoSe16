@@ -21,7 +21,10 @@
 		<button type="submit" 
 		ng-disabled="item.order.cart[$index].status<=2"
 		ng-click="updCtrl.downCart(item.order.cart,$index);"  class="btn btn-default btn-xs">Status zurückschalten!</button>
+		
+		<button type="submit" class="btn btn-danger btn-xs" ng-click="updCtrl.archiveItem(item.id);" ng-disabled="item.order.cart[$index].status<4">Bestellung archivieren <sup>*1</sup></button>
 
 		</div>
 	</li></ul>
+	<div><small><sup>*1</sup> Kann nicht rückgängig gemacht werden.</small></div>
 </div>

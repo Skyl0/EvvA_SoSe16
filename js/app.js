@@ -164,7 +164,7 @@
 		};
 		
 		_this.writeBackId = function (index) {
-			console.log("-------\nWrite Back ID˜\n-------");
+			console.log("-------\nWrite Back ID\n-------");
 			var actual;
 				
 				actual = _this.result.allorders[index];
@@ -184,6 +184,26 @@
 					console.log ("WriteBackID - Updating Order! ID: " + actual.rowid);
 				});
 				//console.log('Order ' + JSON.stringify(_this.order) );
+		  }
+		  
+		  _this.archiveItem = function(index) {
+		  	
+  			console.log("-------\nArchive\n-------");
+
+  			   //console.log( "WriteBackId - ROW ID -> " + actual.rowid);
+				
+  			    var $request = $http({
+  			       method: "post",
+  			       url: "archive_by_id.php",
+  			       data: {
+  			           id: index
+  			       }
+  			   });
+			   
+  				$request.success(function(data){
+  					console.log ("Archive ID - Updating Order! ID: " + index);
+  				});
+  				//console.log('Order ' + JSON.stringify(_this.order) );
 		  }
 		
 

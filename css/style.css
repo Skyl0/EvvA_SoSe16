@@ -46,6 +46,12 @@ ul { margin: 0px; padding: 0px;}
 	}
 }
 
+sup {
+	font-size: 1.05em;
+	position: relative;
+	top : -1px;
+}
+
 .red {
 	color: red;
 }
