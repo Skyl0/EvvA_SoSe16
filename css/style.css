@@ -8,6 +8,24 @@ body {
 	min-height: 100px;
 }
 
+.btn {
+	margin: 5px 5px 5px 0;
+}
+
+ul { margin: 0px; padding: 0px;}
+
+.pizza-item {
+	margin: 5px 5px 5px 0;
+} 
+
+.status-0 {
+	padding-left: 20px;
+}
+
+.pizza-item .pstatus {
+	margin-left: 5px;
+}
+
 li { list-style-type: none; }
 
 .cart-price {

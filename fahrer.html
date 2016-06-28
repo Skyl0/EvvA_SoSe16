@@ -2,21 +2,23 @@
 <div class="fahrer" ng-controller="UpdateController as updCtrl" ng-init="updCtrl.getAll();">
 	<ul><li ng-repeat="item in updCtrl.result.allorders track by $index">
 		
-		<div ng-if="updCtrl.isOrderReady(item.order.cart);">Lieferung an {{item.order.address}}
+		<div ng-if="updCtrl.isOrderReady(item.order.cart);">
+			Lieferung an : <b>{{item.order.address}}</b>
 			<div ng-repeat="pizza in item.order.cart" >
-				<div class="pname">{{pizza.name}}
-					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{pizza.status}}" aria-valuemin="0" aria-valuemax="4" style="width: {{pizza.status * 50}}%">
-						<span class="status">{{pizza.status * 25}}%</span>
+				<div class="pizza-item">
+					<div class="progress-bar progress-bar-striped active"
+					role="progressbar" aria-valuenow="{{pizza.status}}"
+					aria-valuemin="0" aria-valuemax="4" style="width: {{pizza.status * 25}}%">
+						<span class="status">{{pizza.name}} - {{pizza.status * 25}}%</span>
 					</div>
-					<span class="status" ng-if="pizza.status==2">Lieferbereit</span>
-					<span class="status" ng-if="pizza.status==3">Unterwegs</span>
-					<span class="status" ng-if="pizza.status==4">Ausgeliefert</span>
-					<form name="changestatus" ng-submit="updCtrl.upStatus(pizza);">
-					<button type="submit" class="btn btn-success">Status weiterschalten!</button></form>
+					<span class="pstatus" ng-if="pizza.status==2">Lieferbereit</span>
+					<span class="pstatus" ng-if="pizza.status==3">Unterwegs</span>
+					<span class="pstatus" ng-if="pizza.status==4">Ausgeliefert</span>
+					
 				</div>
 			</div>
-			</div>
-		</li>
-	</ul>
-	
+			<form name="changestatus" ng-submit="updCtrl.upCart(item.order.cart);">
+			<button type="submit" class="btn btn-success">Status weiterschalten!</button></form>
+		</div>
+	</li></ul>
 </div>

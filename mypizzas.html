@@ -1,4 +1,4 @@
 <div class="list-item" ng-repeat="pizza in pizzaCtrl.pizzen">
-<h3>{{pizza.name}} <em>{{pizza.price | currency : '€' : 2 }}</em></h3><br/>
-<a class="btn btn-default addbasket" ng-click="pizzaCtrl.cart.addToBasket(pizza);">Zu Warenkorb hinzufügen</a>
+{{pizza.name}} <em>{{pizza.price | currency : '€' : 2 }}</em>
+<a class="btn btn-default btn-xs addbasket" ng-click="pizzaCtrl.cart.addToBasket(pizza);">Zu Warenkorb hinzufügen</a>
 </div>

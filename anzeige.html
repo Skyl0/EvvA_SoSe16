@@ -5,7 +5,7 @@
 	<label for="id">Meine Bestellnummer</label><input type="text" required class="form-control" id="id" ng-model="anzCtrl.id" placeholder="0..X" />
 	<button type="submit" class="btn btn-default">Laden / Aktualisieren</button>
 <div class="ausgabe">
-Ihre Adresse : {{anzCtrl.myorder.order.address}}
+<h5>Ihre Adresse : <b>{{anzCtrl.myorder.order.address}}</b></h5>
 <ul class="list-unstyled anzeige">
 	<li class="list-item" ng-repeat="pizza in anzCtrl.myorder.order.cart">
 		<h5>{{pizza.name}}</h5>

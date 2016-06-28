@@ -110,8 +110,8 @@
 		}
 		
 		_this.isOrderReady  = function(cart) {
-			console.log("Is my order ready?");
-			console.log(cart);
+			//console.log("Is my order ready?");
+			//console.log(cart);
 			for (var i in cart) {
 				console.log("I = " + i);
 				if (cart[i].status < 2) { return false; }
@@ -119,10 +119,26 @@
 			return true;
 		};
 		
+		_this.isNotInDelivery  = function (cart) {
+			console.log(cart);
+			for (var i in cart) {
+				console.log("I = " + i);
+				if (cart[i].status > 2) { return false; }
+			}
+			return true;
+		};
+		
+		_this.upCart = function(cart) {
+			for (var i in cart) {
+				cart[i].status += 1;
+			}
+			this.writeBack();
+		};
+		
 		_this.upStatus = function(pizza) {
 			//this.result.cart[index].status += 1
 			//console.log('TO IMPLEMENT STILL, idclicked = ' + index);
-			if (pizza.status < 5) {
+			if (pizza.status < 2) {
 				pizza.status += 1;
 				console.log(pizza);
 				this.writeBack();

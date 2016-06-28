@@ -8,22 +8,24 @@
 </form> -->
 
 
-<h3> Baecker (Alle Anzeigen)</h3>
+<h3> B&auml;cker</h3>
 <div ng-controller="UpdateController as updCtrl" >
-<!--<form name="updateform" ng-submit="updCtrl.getAll();">
- <button type="submit" class="btn btn-default">Abschicken</button> 
-</form>-->
-<ul class="list-group" ng-init="updCtrl.getAll();"><li ng-repeat="myorder in updCtrl.result.allorders">
-	Kundenaddresse: {{myorder.order.address}} - <small>Interne Order ID: {{myorder.rowid}}</small>
+<ul class="list-group" ng-init="updCtrl.getAll();">
+	<li ng-repeat="myorder in updCtrl.result.allorders" ng-if="updCtrl.isNotInDelivery(myorder.order.cart);">
+	<h5>Kundenaddresse: <b>{{myorder.order.address}}</b> - <small>Interne Order ID: {{myorder.rowid}}</small></h5>
 	<ul>
-		<li class="baecker-pizza list-group-item" ng-repeat="pizza in myorder.order.cart" ng-if="pizza.status<3">
+		<li class="baecker-pizza list-group-item" ng-repeat="pizza in myorder.order.cart">
 			
 				Pizza: {{pizza.name}}<br/>
+				<span class="status-0" ng-if="pizza.status==0">Bestellt</span>
+				<span ng-if="pizza.status==1">Im Ofen</span>
+				<span ng-if="pizza.status==2">Lieferbereit</span>
 			<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{pizza.status}}" aria-valuemin="0" aria-valuemax="2" style="width: {{pizza.status * 25}}%">
+				
 				<span class="status">{{pizza.status * 50}}%</span>
 			</div><br/>
-			<button class="btn-success" ng-click="updCtrl.upStatus(pizza);">Status weiter</a>
-			<button class="btn-error" ng-click="updCtrl.downStatus(pizza);">Status zurück</a>
+			<button class="btn btn-success" ng-click="updCtrl.upStatus(pizza);">Status weiter</a>
+			<button class="btn btn-error btn-xs" ng-click="updCtrl.downStatus(pizza);">Status zurück</a>
 		</li>
 	</ul>
 </li></ul>
