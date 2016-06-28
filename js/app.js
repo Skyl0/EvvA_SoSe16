@@ -113,56 +113,79 @@
 			//console.log("Is my order ready?");
 			//console.log(cart);
 			for (var i in cart) {
-				console.log("I = " + i);
+			//	console.log("I = " + i);
 				if (cart[i].status < 2) { return false; }
 			}
 			return true;
 		};
 		
 		_this.isNotInDelivery  = function (cart) {
-			console.log(cart);
+		//	console.log(cart);
 			for (var i in cart) {
-				console.log("I = " + i);
+		//		console.log("I = " + i);
 				if (cart[i].status > 2) { return false; }
 			}
 			return true;
 		};
 		
-		_this.upCart = function(cart) {
+		_this.upCart = function(cart,index) {
 			for (var i in cart) {
 				cart[i].status += 1;
 			}
-			this.writeBack();
+			this.writeBackId(index);
 		};
 		
-		_this.downCart = function(cart) {
+		_this.downCart = function(cart,index) {
 			for (var i in cart) {
 				cart[i].status -= 1;
 			}
-			this.writeBack();
+			this.writeBackId(index);
 		};
 		
 		_this.upStatus = function(pizza,index) {
 			//this.result.cart[index].status += 1
-			//console.log('TO IMPLEMENT STILL, idclicked = ' + index);
+			console.log(' idclicked = ' + index);
 			if (pizza.status < 2) {
 				pizza.status += 1;
 				console.log(pizza);
-				this.writeBack();
+				this.writeBackId(index);
 			}
 		};
 		
 		_this.downStatus = function(pizza,index) {
 			//this.result.cart[index].status += 1
-			//console.log('TO IMPLEMENT STILL, idclicked = ' + index);
+			console.log(' idclicked = ' + index);
 			if (pizza.status > 0) { pizza.status -= 1;
 				console.log(pizza);
-				this.writeBack();
+				this.writeBackId(index);
 			 }
 			
 		};
 		
-		_this.writeBack = function () {
+		_this.writeBackId = function (index) {
+			console.log("-------\nWrite Back ID˜\n-------");
+			var actual;
+				
+				actual = _this.result.allorders[index];
+			  	console.log(actual);
+			   //console.log( "WriteBackId - ROW ID -> " + actual.rowid);
+				
+			    var $request = $http({
+			       method: "post",
+			       url: "update_by_id.php",
+			       data: {
+			           id: actual.rowid,
+			           order: actual.order
+			       }
+			   });
+			   
+				$request.success(function(data){
+					console.log ("WriteBackID - Updating Order! ID: " + actual.rowid);
+				});
+				//console.log('Order ' + JSON.stringify(_this.order) );
+		  }
+		
+		/*_this.writeBack = function () {
 			console.log("-------\nWrite Back˜\n-------");
 			var actual;
 			
@@ -187,7 +210,7 @@
 				//console.log('Order ' + JSON.stringify(_this.order) );
 		  }
 		  
-		}
+		}*/
 	})
 	.factory ('Warenkorb', function(){
 		var items = [];

@@ -14,7 +14,7 @@
 	<li ng-repeat="myorder in updCtrl.result.allorders" ng-if="updCtrl.isNotInDelivery(myorder.order.cart);">
 	<h5>Kundenaddresse: <b>{{myorder.order.address}}</b> - <small>Interne Order ID: {{myorder.rowid}}</small></h5>
 	<ul>
-		<li class="baecker-pizza list-group-item" ng-repeat="pizza in myorder.order.cart">
+		<li class="baecker-pizza list-group-item" ng-repeat="pizza in myorder.order.cart track by $index">
 			
 				Pizza: {{pizza.name}}<br/>
 				<span class="status-0" ng-if="pizza.status==0">Bestellt</span>
@@ -24,9 +24,9 @@
 				
 				<span class="status">{{pizza.status * 50}}%</span>
 			</div><br/>
-			<button class="btn btn-success" ng-click="updCtrl.upStatus(pizza);"
+			<button class="btn btn-success" ng-click="updCtrl.upStatus(pizza,$index);"
 			ng-disabled="pizza.status>=2">Status weiter</a>
-			<button class="btn btn-error btn-xs" ng-click="updCtrl.downStatus(pizza);"
+			<button class="btn btn-error btn-xs" ng-click="updCtrl.downStatus(pizza,$index);"
 			ng-disabled="pizza.status==0">Status zurück</a>
 		</li>
 	</ul>

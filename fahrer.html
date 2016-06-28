@@ -17,10 +17,10 @@
 					
 				</div>
 			</div>
-			<button type="submit" ng-disabled="item.order.cart[$index].status>=4" ng-click="updCtrl.upCart(item.order.cart);" class="btn btn-success">Status weiterschalten!</button>
+			<button type="submit" ng-disabled="item.order.cart[$index].status>=4" ng-click="updCtrl.upCart(item.order.cart,$index);" class="btn btn-success">Status weiterschalten!</button>
 		<button type="submit" 
 		ng-disabled="item.order.cart[$index].status<=2"
-		ng-click="updCtrl.downCart(item.order.cart);"  class="btn btn-default btn-xs">Status zurückschalten!</button>
+		ng-click="updCtrl.downCart(item.order.cart,$index);"  class="btn btn-default btn-xs">Status zurückschalten!</button>
 
 		</div>
 	</li></ul>
