@@ -8,6 +8,8 @@ body {
 	min-height: 100px;
 }
 
+li { list-style-type: none; }
+
 .cart-price {
 	position: absolute;
 	left: 50%;

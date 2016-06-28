@@ -1,27 +1,22 @@
 <h3> Fahrer </h3>
-<div ng-controller="UpdateController as updCtrl" ng-init="updCtrl.getAll();">
-<!--	<form name="updateform" ng-submit="">
-		<button type="submit" class="btn btn-default">Hole alle!</button>
-	</form> -->
-	<div ng-repeat="item in updCtrl.result.allorders track by $index">
-	Lieferung an {{item.address}}
-	<div ng-if="item.status >= 2">{{item.order.cart}}
-		<span class="status" ng-if="item.status=2">Lieferbereit</span>
-		<span class="status" ng-if="item.status=3">Unterwegs</span>
-		<span class="status" ng-if="item.status=4">Fertig</span>
-		<form name="changestatus" ng-submit="updCtrl.upStatus($index);">
-		<button type="submit" class="btn btn-default">Status weiterschalten!</button>
-		</form>
-	</div>
-	</div>
-	<div class="fahrer">
-	Lieferung an M. Ernst Soderstr. 96 Darmstadt
-	<div>Pizza Tonno
-		<span class="status" >Lieferbereit</span>
+<div class="fahrer" ng-controller="UpdateController as updCtrl" ng-init="updCtrl.getAll();">
+	<ul><li ng-repeat="item in updCtrl.result.allorders track by $index">
 		
-		<form name="changestatus" ng-submit="updCtrl.upStatus(0);">
-		<button type="submit" class="btn btn-default">Status weiterschalten!</button>
-		</form>
-	</div>
-	</div>
+		<div ng-if="updCtrl.isOrderReady(item.order.cart);">Lieferung an {{item.order.address}}
+			<div ng-repeat="pizza in item.order.cart" >
+				<div class="pname">{{pizza.name}}
+					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{pizza.status}}" aria-valuemin="0" aria-valuemax="4" style="width: {{pizza.status * 50}}%">
+						<span class="status">{{pizza.status * 25}}%</span>
+					</div>
+					<span class="status" ng-if="pizza.status==2">Lieferbereit</span>
+					<span class="status" ng-if="pizza.status==3">Unterwegs</span>
+					<span class="status" ng-if="pizza.status==4">Ausgeliefert</span>
+					<form name="changestatus" ng-submit="updCtrl.upStatus(pizza);">
+					<button type="submit" class="btn btn-success">Status weiterschalten!</button></form>
+				</div>
+			</div>
+			</div>
+		</li>
+	</ul>
+	
 </div>
