@@ -14,10 +14,14 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
+//$data = mysqli_real_escape_string($data);
+// SQL Injection auf $data prüfen?
 
 $query = "UPDATE orders
-SET theorder='$data' WHERE id= '$id'";
+SET theorder='$data' WHERE id= '" . intval($id) . "'";
 $result = mysqli_query($connect, $query);
+
+
 
 //while($row = $result->fetch_assoc()){
   //  echo $row['theorder'];

@@ -21,7 +21,7 @@
 	
 	var order2 = [{"order":{"cart":[{"name":"Tonno","price":6.5,"status":0},{"name":"Frutti di Mare","price":8.3,"status":0}],"address":"asdasdsad","id":""}}];
 	
-	angular.module('pizza',['ngRoute'])
+	angular.module('pizza',['ngRoute','ngCookies'])
 	.config(function ($routeProvider) {
 		$routeProvider.when("/#", {
 			templateUrl: "order.html",
@@ -42,14 +42,23 @@
 		this.pizzen = data2;
 	
 	})	
-	.controller('AnzeigeController',function($http){
+	.controller('AnzeigeController',function($http,$cookies){
 				
 		var _this = this
-		_this.id = 45;
+		var cookie_id ;
+		_this.id = 0;
+		cookie_id = $cookies.get('order_id');
+		
+		if (cookie_id) {_this.id = cookie_id;}
 		//_this.myorder = order2;
 		_this.myorder = {};
 		//_this.myarray = {};
 		
+		_this.cookieUpdate = function() {
+			
+			this.getMyOrder();
+			
+		}
 		_this.getMyOrder = function(){
 			
 			$http.get('get_by_id.php',{params:{"id": _this.id}})
@@ -62,13 +71,12 @@
 			})
 		}
 	})	
-	.controller ('OrderController',function($http,Warenkorb) {
+	.controller ('OrderController',function($http,$cookies,Warenkorb) {
 		var _this = this;
 		_this.order = {};
 		_this.order.cart = Warenkorb.getItems();
 		_this.order.address = '';
 		_this.order.id = 0;
-		
 		
 		_this.placeOrder = function() {
 				// TODO GET nehmen um die ID zu empfangen und dem Kunden auszugeben
@@ -76,10 +84,12 @@
 					_this.order.id = data; 
 					console.log ("Placed Order! ID: " + _this.order.id);
 					alert("Ihre Order Id ist " + _this.order.id);
+					$cookies.put('order_id',_this.order.id);
 			},function() {
 				console.log("Error placing order!");
 			});
 			console.log('Order ' + JSON.stringify(_this.order) );
+			
 			
 		}
 	})
@@ -88,16 +98,7 @@
 		var _this = this;
 		
 		_this.result = {};
-		_this.id = 23;
-		/*
-		this.updateById = function() {
-			
-		$http.post('update_by_id.php', _this.updateMsg,{params:{"id": _this.id}})
-			.success(function(){
-				console.log('Updated!');
-			});
-		}
-			*/
+		//_this.id ;
 		
 		_this.getAll = function() {
 			$http.get('get_all.php')
@@ -185,32 +186,7 @@
 				//console.log('Order ' + JSON.stringify(_this.order) );
 		  }
 		
-		/*_this.writeBack = function () {
-			console.log("-------\nWrite Back˜\n-------");
-			var actual;
-			
-			for (var myorder in _this.result.allorders) {
-				
-				actual = _this.result.allorders[myorder];
-			  	console.log(actual);
-			    console.log( " ROW ID -> " + actual.rowid);
-				
-			    var $request = $http({
-			       method: "post",
-			       url: "update_by_id.php",
-			       data: {
-			           id: actual.rowid,
-			           order: actual.order
-			       }
-			   });
-			   
-				$request.success(function(data){
-					console.log ("Updating Order! ID: " + actual.rowid);
-				});
-				//console.log('Order ' + JSON.stringify(_this.order) );
-		  }
-		  
-		}*/
+
 	})
 	.factory ('Warenkorb', function(){
 		var items = [];

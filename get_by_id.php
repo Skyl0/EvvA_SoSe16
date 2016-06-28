@@ -11,7 +11,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-$query = "SELECT * FROM orders where id= '$id'";
+$query = "SELECT * FROM orders where id= '" . intval($id) . "'";
 $result = mysqli_query($connect, $query);
 
 while($row = $result->fetch_assoc()){
