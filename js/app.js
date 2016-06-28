@@ -76,15 +76,15 @@
 		_this.order = {};
 		_this.order.cart = Warenkorb.getItems();
 		_this.order.address = '';
-		_this.order.id = 0;
+	//	_this.order.id = 0;
 		
 		_this.placeOrder = function() {
 				// TODO GET nehmen um die ID zu empfangen und dem Kunden auszugeben
 			$http.post('insert.php',  {order : _this.order} ).success(function(data){
-					_this.order.id = data; 
-					console.log ("Placed Order! ID: " + _this.order.id);
-					alert("Ihre Order Id ist " + _this.order.id);
-					$cookies.put('order_id',_this.order.id);
+					var myid = data; 
+					//console.log ("Placed Order! ID: " + myid);
+					alert("Ihre Order Id ist " + myid);
+					$cookies.put('order_id', myid);
 			},function() {
 				console.log("Error placing order!");
 			});
