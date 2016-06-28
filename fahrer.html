@@ -17,8 +17,11 @@
 					
 				</div>
 			</div>
-			<form name="changestatus" ng-submit="updCtrl.upCart(item.order.cart);">
-			<button type="submit" class="btn btn-success">Status weiterschalten!</button></form>
+			<button type="submit" ng-disabled="item.order.cart[$index].status>=4" ng-click="updCtrl.upCart(item.order.cart);" class="btn btn-success">Status weiterschalten!</button>
+		<button type="submit" 
+		ng-disabled="item.order.cart[$index].status<=2"
+		ng-click="updCtrl.downCart(item.order.cart);"  class="btn btn-default btn-xs">Status zurückschalten!</button>
+
 		</div>
 	</li></ul>
 </div>

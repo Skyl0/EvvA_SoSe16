@@ -45,7 +45,7 @@
 	.controller('AnzeigeController',function($http){
 				
 		var _this = this
-		_this.id = 21;
+		_this.id = 45;
 		//_this.myorder = order2;
 		_this.myorder = {};
 		//_this.myarray = {};
@@ -135,7 +135,14 @@
 			this.writeBack();
 		};
 		
-		_this.upStatus = function(pizza) {
+		_this.downCart = function(cart) {
+			for (var i in cart) {
+				cart[i].status -= 1;
+			}
+			this.writeBack();
+		};
+		
+		_this.upStatus = function(pizza,index) {
 			//this.result.cart[index].status += 1
 			//console.log('TO IMPLEMENT STILL, idclicked = ' + index);
 			if (pizza.status < 2) {
@@ -145,7 +152,7 @@
 			}
 		};
 		
-		_this.downStatus = function(pizza) {
+		_this.downStatus = function(pizza,index) {
 			//this.result.cart[index].status += 1
 			//console.log('TO IMPLEMENT STILL, idclicked = ' + index);
 			if (pizza.status > 0) { pizza.status -= 1;
